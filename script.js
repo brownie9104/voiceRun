@@ -232,17 +232,42 @@ function resetGame() {
     score.reset();
     frames = 0;
 }
+// ==========================================
+// [수정] FPS 제한을 위한 변수 설정 (120Hz 방지용)
+// ==========================================
+let now, elapsed;
+let then = Date.now();
+const fps = 60;                  // 목표 프레임 (60FPS 고정)
+const fpsInterval = 1000 / fps;  // 한 프레임당 걸리는 시간 (약 16.6ms)
 
 function loop() {
-    bg.update(); bg.draw();
-    pipes.update(); pipes.draw();
-    bird.update(); bird.draw();
-
-    // [중요] 아까 빠져있던 UI 업데이트 함수를 여기에 추가!
-    updateMicUI();
-
-    frames++;
+    // 1. 다음 프레임 요청 (화면 주사율에 맞춤)
     requestAnimationFrame(loop);
+
+    // 2. 현재 시간 체크
+    now = Date.now();
+    elapsed = now - then;
+
+    // 3. 60FPS 간격(약 16ms)보다 시간이 더 지났을 때만 화면 갱신
+    if (elapsed > fpsInterval) {
+        // 시간 보정 (정확한 주기를 맞추기 위함)
+        then = now - (elapsed % fpsInterval);
+
+        // --- 기존 게임 로직 실행 ---
+        bg.update();
+        bg.draw();
+
+        pipes.update();
+        pipes.draw();
+
+        bird.update();
+        bird.draw();
+
+        // UI 및 마이크 게이지 업데이트
+        updateMicUI();
+
+        frames++;
+    }
 }
 
 // ==========================================
