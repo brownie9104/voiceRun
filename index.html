@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>응원으로 달리자</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="console-body">
+
+        <div class="game-view">
+            <canvas id="gameCanvas" width="320" height="480"></canvas>
+
+            <div id="ui-layer">
+                <div id="score">0</div>
+
+                <div id="start-screen" class="screen active">
+                    <h1>소리질러</h1>
+                    <p>Make Some Noise!</p>
+                    <button id="start-btn">Start Game</button>
+                </div>
+
+                <div id="game-over-screen" class="screen">
+                    <h1>Game Over</h1>
+                    <p>Score: <span id="final-score">0</span></p>
+                    <button id="restart-btn">Try Again</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-panel">
+            <div class="control-row">
+                <button id="enable-mic-btn">🔇 MIC ON</button>
+            </div>
+
+            <div class="control-row">
+                <span class="label">SENSITIVITY</span>
+                <input type="range" id="sensitivity-slider" min="0" max="100" value="30">
+            </div>
+
+            <div class="meter-frame">
+                <div id="mic-meter-fill"></div>
+                <div id="mic-threshold-line"></div>
+            </div>
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
